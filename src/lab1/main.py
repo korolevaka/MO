@@ -8,6 +8,7 @@ def main():
     print_first_14_rows(df)
     print_shape(df)
     print_info(df)
+    set_index(df)
     set_index_by_name(df)
     print_top5_high_alcohol(df)
     print_top5_low_alcohol(df)
@@ -35,40 +36,43 @@ def print_info(df):
     print("\n3. Сводная информация по датафрейму:")
     print(df.info)
 
+def set_index(df):
+    print("\n4. Что является индексом:")
+    print(df.index)
 
 def set_index_by_name(df):
-    print("\n4. Проиндексируйте набор данных по полю name:")
+    print("\n5. Проиндексируйте набор данных по полю name:")
     df_indexed = df.set_index('name')
     print(df_indexed.head())
 
 
 def print_top5_high_alcohol(df):
-    print("\n5. TOP-5 продуктов с наибольшим содержанием алкоголя:")
+    print("\n6. TOP-5 продуктов с наибольшим содержанием алкоголя:")
     top5_high_alcohol = df.nlargest(5, 'alcohol')[['name', 'alcohol']]
     print(top5_high_alcohol)
 
 
 def print_top5_low_alcohol(df):
-    print("\n6. TOP-5 продуктов с наименьшим содержанием алкоголя:")
+    print("\n7. TOP-5 продуктов с наименьшим содержанием алкоголя:")
     top5_low_alcohol = df.nsmallest(5, 'alcohol')[['name', 'alcohol']]
     print(top5_low_alcohol)
 
 
 def convert_calories_and_stats(df):
-    print("\n7. Преобразование столбца calories в float и статистика:")
+    print("\n8. Преобразование столбца calories в float и статистика:")
     df['calories'] = df['calories'].astype(float)
     calories_stats = df['calories'].describe()
     print(calories_stats)
 
 
 def sort_by_calories(df):
-    print("\n8. Набор данных, отсортированный по calories (по убыванию):")
+    print("\n9. Набор данных, отсортированный по calories (по убыванию):")
     df_sorted_calories = df.sort_values('calories', ascending=False)
     print(df_sorted_calories)
 
 
 def print_sodium_limits(df):
-    print("\n9. Пределы содержания натрия:")
+    print("\n10. Пределы содержания натрия:")
     sodium_min = df['sodium'].min()
     sodium_max = df['sodium'].max()
     print(f"Пределы: от {sodium_min} до {sodium_max}")
@@ -76,7 +80,7 @@ def print_sodium_limits(df):
 
 
 def split_by_cost_categories(df):
-    print("\n10. Разделение на три категории стоимости:")
+    print("\n11. Разделение на три категории стоимости:")
 
     cost_q1 = df['cost'].quantile(0.33)
     cost_q3 = df['cost'].quantile(0.67)
@@ -102,7 +106,7 @@ def split_by_cost_categories(df):
 
 
 def print_most_caloric_cheap(df):
-    print("\n11. Наиболее калорийное пиво среди дешевых:")
+    print("\n12. Наиболее калорийное пиво среди дешевых:")
     cost_q1 = df['cost'].quantile(0.33)
     df_cheap = df[df['cost'] < cost_q1]
 
@@ -111,7 +115,7 @@ def print_most_caloric_cheap(df):
 
 
 def analyze_calories_cost_relationship(df):
-    print("\n12. Существует ли какая-либо связь между калорийностью и стоимостью пива?")
+    print("\n13. Существует ли какая-либо связь между калорийностью и стоимостью пива?")
 
     df_copy = df.copy()
     features_to_drop = ['name', 'sodium', 'alcohol']
@@ -136,7 +140,7 @@ def analyze_calories_cost_relationship(df):
 
 
 def analyze_alcohol_calories_relationship(df):
-    print("\n13. Влияет ли содержание алкоголя на калорийность?")
+    print("\n14. Влияет ли содержание алкоголя на калорийность?")
 
     df_copy = df.copy()
     features_to_drop = ['name', 'sodium', 'cost']
